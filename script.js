@@ -22,15 +22,7 @@
 
   /* ─── LOADER ─────────────────────────────────────────────── */
   const loader   = document.getElementById('loader');
-  const loaderW  = loader.querySelector('.loader-word');
-  const loaderS  = loader.querySelector('.loader-sub');
-  const loaderBF = loader.querySelector('.loader-bar-fill');
-
-  // Split letters
-  loaderW.innerHTML = 'COCOON'.split('').map(c =>
-    `<span class="lc">${c}</span>`
-  ).join('');
-
+  
   const tl = gsap.timeline({
     onComplete: () => {
       loader.classList.add('out');
@@ -40,12 +32,12 @@
     }
   });
 
-  tl.to(loader.querySelectorAll('.lc'), {
-    y: 0, stagger: 0.07, duration: 0.55, ease: EASE, delay: 0.2
-  })
-  .to(loaderS,  { opacity: 1, duration: 0.4 }, '-=0.2')
-  .to(loaderBF, { width: '100%', duration: 0.85, ease: 'power2.inOut' }, '-=0.3')
-  .to({}, { duration: 0.4 }); // hold before dismissing
+  // Animate logo
+  tl.fromTo('.loader-logo', 
+    { opacity: 0, scale: 0.8, y: 30 },
+    { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: EASE }
+  )
+  .to({}, { duration: 1.5 }); // hold before dismissing
 
 
   /* ─── HERO ANIMATION ──────────────────────────────────────── */
@@ -303,7 +295,7 @@
   if (pricingScene) {
     const cards = [...pricingScene.querySelectorAll('.price-card')];
 
-    // Scroll-reveal the whole block
+    // Scroll-reveal whole block
     gsap.fromTo(pricingScene,
       { opacity: 0, y: 60 },
       { opacity: 1, y: 0, duration: 1, ease: EASE,
