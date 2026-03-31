@@ -564,9 +564,16 @@ html[dir="rtl"] .marquee-edge-right   { right: auto; left: 0; background: linear
 }
 .selected-header .section-title { margin-bottom: 0; }
 
-/* Selected row reveal via CSS — no GSAP opacity risk */
-.sw-row.sw-hidden { opacity: 0; transform: translateY(28px); }
-.sw-row { transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+/* Selected row reveal — starts visible, animates in via IntersectionObserver */
+.sw-row {
+  opacity: 1;                        /* always visible by default */
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.sw-row.sw-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* Force consistent LTR column ordering regardless of page RTL */
 .sw-list {

@@ -201,15 +201,18 @@
     );
   });
 
-  // Selected works — CSS-driven reveal (no GSAP opacity/transform set on init)
-  document.querySelectorAll('[data-anim="sw"]').forEach((row) => {
-    row.classList.add('sw-hidden');
-    ScrollTrigger.create({
-      trigger: row,
-      start: 'top 92%',
-      once: true,
-      onEnter: () => row.classList.remove('sw-hidden')
+  // Selected works — IntersectionObserver (reliable with lazy images)
+  const swObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('sw-visible');
+        swObserver.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('[data-anim="sw"]').forEach(row => {
+    swObserver.observe(row);
   });
 
 
