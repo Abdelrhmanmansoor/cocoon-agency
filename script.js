@@ -201,25 +201,38 @@
     );
   });
 
-  // Selected works — stagger reveal
-  document.querySelectorAll('[data-anim="sel"]').forEach((el, idx) => {
-    gsap.fromTo(el,
-      { y: 50, opacity: 0, scale: 0.97 },
-      { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: EASE,
-        delay: idx * 0.1,
-        scrollTrigger: { trigger: el, start: 'top 88%' } }
+  // Selected works — alternating reveal
+  document.querySelectorAll('[data-anim="sw"]').forEach((row) => {
+    const isImgRight = row.classList.contains('sw-row--img-right');
+    const text  = row.querySelector('.sw-text');
+    const media = row.querySelector('.sw-media');
+
+    // Text slides in from its side
+    gsap.fromTo(text,
+      { x: isImgRight ? -40 : 40, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.9, ease: EASE,
+        scrollTrigger: { trigger: row, start: 'top 82%' } }
+    );
+    // Image slides in from opposite side
+    gsap.fromTo(media,
+      { x: isImgRight ? 40 : -40, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.9, ease: EASE, delay: 0.1,
+        scrollTrigger: { trigger: row, start: 'top 82%' } }
     );
 
-    // Subtle parallax on scroll
-    gsap.to(el.querySelector('img'), {
-      yPercent: -6,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top bottom', end: 'bottom top',
-        scrub: 1.5
-      }
-    });
+    // Subtle parallax on the image
+    const img = media.querySelector('img');
+    if (img) {
+      gsap.to(img, {
+        yPercent: -5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: row,
+          start: 'top bottom', end: 'bottom top',
+          scrub: 1.8
+        }
+      });
+    }
   });
 
 
