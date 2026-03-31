@@ -564,6 +564,10 @@ html[dir="rtl"] .marquee-edge-right   { right: auto; left: 0; background: linear
 }
 .selected-header .section-title { margin-bottom: 0; }
 
+/* Selected row reveal via CSS — no GSAP opacity risk */
+.sw-row.sw-hidden { opacity: 0; transform: translateY(28px); }
+.sw-row { transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+
 /* Force consistent LTR column ordering regardless of page RTL */
 .sw-list {
   direction: ltr;
