@@ -207,31 +207,36 @@
     const text  = row.querySelector('.sw-text');
     const media = row.querySelector('.sw-media');
 
-    // Text slides in from its side
-    gsap.fromTo(text,
-      { x: isImgRight ? -40 : 40, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.9, ease: EASE,
-        scrollTrigger: { trigger: row, start: 'top 82%' } }
-    );
-    // Image slides in from opposite side
-    gsap.fromTo(media,
-      { x: isImgRight ? 40 : -40, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.9, ease: EASE, delay: 0.1,
-        scrollTrigger: { trigger: row, start: 'top 82%' } }
-    );
+    // Text slides in from its side (opacity animation on text only)
+    if (text) {
+      gsap.fromTo(text,
+        { x: isImgRight ? -32 : 32, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.85, ease: EASE,
+          scrollTrigger: { trigger: row, start: 'top bottom', once: true } }
+      );
+    }
 
-    // Subtle parallax on the image
-    const img = media.querySelector('img');
-    if (img) {
-      gsap.to(img, {
-        yPercent: -5,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: row,
-          start: 'top bottom', end: 'bottom top',
-          scrub: 1.8
-        }
-      });
+    // Image: only subtle x slide, NO opacity — always visible
+    if (media) {
+      gsap.fromTo(media,
+        { x: isImgRight ? 24 : -24 },
+        { x: 0, duration: 0.85, ease: EASE, delay: 0.08,
+          scrollTrigger: { trigger: row, start: 'top bottom', once: true } }
+      );
+
+      // Subtle parallax on the image
+      const img = media.querySelector('img');
+      if (img) {
+        gsap.to(img, {
+          yPercent: -5,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: row,
+            start: 'top bottom', end: 'bottom top',
+            scrub: 1.8
+          }
+        });
+      }
     }
   });
 
