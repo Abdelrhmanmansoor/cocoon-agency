@@ -307,27 +307,108 @@
   }
 
 
-  /* ─── MARQUEE — JS pixel-perfect seamless loop ────────────── */
+  /* ─── MARQUEE — GSAP seamless infinite loop (static by default) ────────────────────── */
+  const marqueeSection = document.getElementById('marquee');
   const mqTrack = document.querySelector('.marquee-track');
-  const mqSet1  = mqTrack ? mqTrack.querySelector('.marquee-set') : null;
-  if (mqTrack && mqSet1) {
-    let pos     = 0;
-    let paused  = false;
-    const speed = 0.55; // px per frame
+  const marqueeSets = mqTrack ? mqTrack.querySelectorAll('.marquee-set') : null;
 
-    function tickMarquee() {
-      if (!paused) {
-        pos -= speed;
-        // Reset when we've scrolled exactly one set's width — seamless
-        if (Math.abs(pos) >= mqSet1.offsetWidth) pos = 0;
-        mqTrack.style.transform = `translateX(${pos}px)`;
-      }
-      requestAnimationFrame(tickMarquee);
+  if (mqTrack && marqueeSets && marqueeSets.length > 0) {
+    // Clone sets for seamless loop (need at least 4 total sets)
+    const originalSets = Array.from(marqueeSets);
+    const numClones = 2; // Add 2 more clones
+    
+    // Create clones
+    for (let i = 0; i < numClones; i++) {
+      originalSets.forEach(set => {
+        const clone = set.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        mqTrack.appendChild(clone);
+      });
     }
-    requestAnimationFrame(tickMarquee);
-
-    mqTrack.addEventListener('mouseenter', () => { paused = true; });
-    mqTrack.addEventListener('mouseleave', () => { paused = false; });
+    
+    // Get all sets after cloning
+    const allSets = mqTrack.querySelectorAll('.marquee-set');
+    
+    // Determine direction based on language
+    const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+    
+    // Calculate dimensions
+    const setWidth = marqueeSets[0].offsetWidth;
+    const totalWidth = setWidth * allSets.length;
+    
+    // Set initial position and speed
+    let currentPos = 0;
+    const speed = isRTL ? -0.8 : 0.8; // px per frame
+    let paused = true; // Start paused (static by default)
+    
+    // Animation loop
+    function animateMarquee() {
+      if (!paused) {
+        currentPos += speed;
+        
+        // Handle seamless loop in both directions
+        if (isRTL) {
+          // Moving left in RTL
+          if (currentPos <= -setWidth) {
+            currentPos = 0;
+          }
+        } else {
+          // Moving right in LTR
+          if (currentPos >= 0) {
+            currentPos = -setWidth * (originalSets.length);
+          }
+        }
+        
+        // Apply transform with GPU acceleration
+        gsap.set(mqTrack, {
+          x: currentPos,
+          force3D: true
+        });
+      }
+      requestAnimationFrame(animateMarquee);
+    }
+    
+    // Initialize position
+    currentPos = isRTL ? 0 : -setWidth * originalSets.length;
+    
+    // Start animation loop (but paused - static)
+    requestAnimationFrame(animateMarquee);
+    
+    // Start animation on hover, pause when mouse leaves
+    marqueeSection.addEventListener('mouseenter', () => { paused = false; });
+    marqueeSection.addEventListener('mouseleave', () => { paused = true; });
+    
+    // Add hover indicator styling
+    marqueeSection.style.cursor = 'pointer';
+    
+    // Handle resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const newSetWidth = marqueeSets[0].offsetWidth;
+        const newTotalWidth = newSetWidth * allSets.length;
+        if (isRTL) {
+          currentPos = 0;
+        } else {
+          currentPos = -newSetWidth * originalSets.length;
+        }
+      }, 250);
+    });
+    
+    // Handle language change
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          const newIsRTL = document.documentElement.getAttribute('dir') === 'rtl';
+          if (newIsRTL !== isRTL) {
+            // Reload to reset animation properly
+            location.reload();
+          }
+        }, 150);
+      });
+    }
   }
 
 
@@ -457,5 +538,166 @@
   exitX       && exitX.addEventListener('click', closeExit);
   exitOverlay && exitOverlay.addEventListener('click', closeExit);
   exitCTA     && exitCTA.addEventListener('click', closeExit);
+
+
+  /* ─── KINETIC TEXT BAND ─────────────────────────────────────── */
+  (function initKineticText() {
+    const section = document.getElementById('kinetic-text');
+    const el      = document.getElementById('kineticText');
+    if (!section || !el) return;
+
+    const phrasesAr = JSON.parse(section.dataset.phrasesAr || '[]');
+    const phrasesEn = JSON.parse(section.dataset.phrasesEn || '[]');
+
+    let idx     = 0;
+    let paused  = false;
+    let timer   = null;
+
+    function getLang() {
+      return document.documentElement.getAttribute('dir') === 'rtl' ? 'ar' : 'en';
+    }
+
+    function getPhrases() {
+      return getLang() === 'ar' ? phrasesAr : phrasesEn;
+    }
+
+    function showPhrase(text) {
+      /* Phase 1: exit */
+      el.classList.add('kt-out');
+
+      setTimeout(() => {
+        /* Phase 2: instant swap + enter position (no transition) */
+        el.textContent = text;
+        el.classList.remove('kt-out');
+        el.classList.add('kt-in');
+
+        /* Force reflow so the browser registers the class before removing it */
+        void el.offsetWidth;
+
+        /* Phase 3: enter animation */
+        el.classList.remove('kt-in');
+      }, 460); /* match the transition duration */
+    }
+
+    function next() {
+      if (paused) return;
+      const phrases = getPhrases();
+      idx = (idx + 1) % phrases.length;
+      showPhrase(phrases[idx]);
+    }
+
+    function start() {
+      clearInterval(timer);
+      timer = setInterval(next, 2600);
+    }
+
+    /* Initial text (no animation) */
+    const phrases = getPhrases();
+    el.textContent = phrases[0];
+
+    /* Pause on hover */
+    section.addEventListener('mouseenter', () => { paused = true; });
+    section.addEventListener('mouseleave', () => { paused = false; });
+
+    /* Re-sync when language is toggled */
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        setTimeout(() => {
+          const p = getPhrases();
+          idx = idx % p.length;
+          el.textContent = p[idx];
+        }, 50);
+      });
+    }
+
+    start();
+  })();
+
+
+  /* ─── DYNAMIC CURRENCY PRICING ────────────────────────────── */
+  (function initCurrencyPricing() {
+
+    /* Currency configs: { rate vs USD, prefix/symbol, rounding step } */
+    const CURRENCIES = {
+      USD: { rate: 1,     prefix: '$',    step: 1  },
+      SAR: { rate: 3.75,  prefix: 'SAR ', step: 5  },
+      AED: { rate: 3.67,  prefix: 'AED ', step: 5  },
+      EGP: { rate: 50.50, prefix: 'EGP ', step: 50 },
+    };
+
+    /* Country → currency map */
+    const COUNTRY_MAP = {
+      SA: 'SAR', AE: 'AED', EG: 'EGP',
+      BH: 'SAR', KW: 'SAR', OM: 'SAR', QA: 'SAR', YE: 'SAR',
+    };
+
+    function roundTo(value, step) {
+      return Math.round(value / step) * step;
+    }
+
+    function formatPrice(usd, currency) {
+      const cfg = CURRENCIES[currency] || CURRENCIES.USD;
+      const raw = usd * cfg.rate;
+      const rounded = roundTo(raw, cfg.step);
+      const formatted = rounded.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      return cfg.prefix + formatted;
+    }
+
+    function injectPrices(currency) {
+      document.querySelectorAll('.pc-price-val[data-usd]').forEach(el => {
+        const usd = parseFloat(el.dataset.usd);
+        el.textContent = formatPrice(usd, currency);
+      });
+    }
+
+    function markActivePill(currency) {
+      document.querySelectorAll('.cp-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.currency === currency);
+      });
+    }
+
+    function applyAndStore(currency) {
+      injectPrices(currency);
+      markActivePill(currency);
+    }
+
+    /* ── Currency switcher pills ── */
+    document.querySelectorAll('.cp-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const chosen = btn.dataset.currency;
+        localStorage.setItem('c-currency', chosen);
+        applyAndStore(chosen);
+      });
+    });
+
+    /* ── Detection flow ── */
+    const stored = localStorage.getItem('c-currency');
+    if (stored && CURRENCIES[stored]) {
+      /* Path 1: use stored preference synchronously — no flicker */
+      applyAndStore(stored);
+      return;
+    }
+
+    /* Path 2: IP geolocation (async, 3s timeout) */
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3000);
+
+    fetch('https://ipapi.co/json/', { signal: controller.signal })
+      .then(r => r.json())
+      .then(data => {
+        clearTimeout(timeout);
+        const country = (data && data.country_code) ? data.country_code.toUpperCase() : '';
+        const resolved = COUNTRY_MAP[country] || 'USD';
+        localStorage.setItem('c-currency', resolved);
+        applyAndStore(resolved);
+      })
+      .catch(() => {
+        /* Path 3: fallback — USD (default HTML values remain correct) */
+        markActivePill('USD');
+      });
+
+  })();
+
 
 })();

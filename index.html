@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="is-loading">
@@ -191,6 +191,18 @@
       </div>
     </div>
     <div class="marquee-edge marquee-edge-right"></div>
+  </section>
+
+
+  <!-- ══════════════════════════════
+       KINETIC TEXT BAND
+  ══════════════════════════════ -->
+  <section id="kinetic-text"
+    data-phrases-ar='["موقعك جاهز خلال 12 ساعة","مو قالب — تصميم مخصص 100%","اطلق موقعك بسرعة واحتراف","موقع يبيع لك فعلاً","تصميم يخطف الانتباه ونتائج حقيقية","من فكرة إلى موقع مباشر خلال يوم","سرعة. جودة. نتائج."]'
+    data-phrases-en='["Your website, ready in 12 hours","We don&#39;t build templates — we build identity","Launch faster. Look better. Convert more.","A website that actually sells","Designed to impress. Built to perform.","From idea to live website — in one day","Speed. Quality. Results."]'>
+    <div class="kt-inner">
+      <span class="kt-text" id="kineticText" aria-live="polite"></span>
+    </div>
   </section>
 
 
@@ -496,6 +508,14 @@
         </p>
       </div>
 
+      <!-- Currency Switcher -->
+      <div class="currency-picker" id="currencyPicker" aria-label="Currency selector">
+        <button class="cp-btn" data-currency="USD">USD $</button>
+        <button class="cp-btn" data-currency="SAR">SAR</button>
+        <button class="cp-btn" data-currency="AED">AED</button>
+        <button class="cp-btn" data-currency="EGP">EGP</button>
+      </div>
+
       <div class="pricing-cards" id="pricingCards">
 
         <!-- STARTER -->
@@ -503,24 +523,31 @@
           <div class="pc-head">
             <span class="pc-tier lang-ar">البداية</span>
             <span class="pc-tier lang-en">Starter</span>
-            <p class="pc-desc lang-ar">الخطوة الأولى نحو حضور رقمي حقيقي</p>
-            <p class="pc-desc lang-en">Your first real digital presence</p>
+            <p class="pc-desc lang-ar">الأفضل للمشاريع البسيطة</p>
+            <p class="pc-desc lang-en">Best for simple projects</p>
           </div>
-          <div class="pc-price-row">
-            <span class="pc-amt">—</span>
-            <span class="pc-cur">KWD</span>
+          <div class="pc-price-block">
+            <div class="pc-price-row">
+              <span class="pc-price-val" data-usd="99">$99</span>
+            </div>
+            <p class="pc-price-note">
+              <span class="lang-ar">دفعة واحدة · بدون رسوم خفية</span>
+              <span class="lang-en">One-time payment · No hidden fees</span>
+            </p>
           </div>
           <div class="pc-sep"></div>
           <ul class="pc-list">
-            <li><span class="lang-ar">موقع ويب كامل على كل الأجهزة</span><span class="lang-en">Full website — works on every device</span></li>
-            <li><span class="lang-ar">تصميم مخصص 100% لعلامتك</span><span class="lang-en">100% custom design for your brand</span></li>
-            <li><span class="lang-ar">تسليم خلال 12 ساعة</span><span class="lang-en">Delivered in 12 hours</span></li>
-            <li><span class="lang-ar">دعم كامل لمدة أسبوع بعد الإطلاق</span><span class="lang-en">Full 1-week support post-launch</span></li>
-            <li><span class="lang-ar">3 مراجعات مضمونة</span><span class="lang-en">3 guaranteed revisions</span></li>
+            <li><span class="lang-ar">صفحة هبوط واحدة</span><span class="lang-en">1 Landing Page</span></li>
+            <li><span class="lang-ar">تصميم مخصص بلا قوالب</span><span class="lang-en">Custom design — no templates</span></li>
+            <li><span class="lang-ar">متوافق مع جميع الأجهزة</span><span class="lang-en">Fully mobile responsive</span></li>
+            <li><span class="lang-ar">تحسين سرعة أساسي</span><span class="lang-en">Basic speed optimization</span></li>
+            <li><span class="lang-ar">نموذج تواصل + زر واتساب</span><span class="lang-en">Contact form + WhatsApp button</span></li>
+            <li><span class="lang-ar">مراجعة واحدة مضمونة</span><span class="lang-en">1 guaranteed revision</span></li>
+            <li><span class="lang-ar">تسليم خلال 24 ساعة</span><span class="lang-en">Delivery in 24 hours</span></li>
           </ul>
           <a href="#contact" class="pc-btn">
             <span class="lang-ar">ابدأ الآن</span>
-            <span class="lang-en">Start Now</span>
+            <span class="lang-en">Get Started</span>
           </a>
         </div>
 
@@ -534,21 +561,28 @@
           <div class="pc-head">
             <span class="pc-tier lang-ar">المحترف</span>
             <span class="pc-tier lang-en">Pro</span>
-            <p class="pc-desc lang-ar">لمن يريد نتائج لا مجرد موقع</p>
+            <p class="pc-desc lang-ar">لمن يريد نتائج حقيقية لا مجرد موقع</p>
             <p class="pc-desc lang-en">For those who want results, not just a website</p>
           </div>
-          <div class="pc-price-row">
-            <span class="pc-amt">—</span>
-            <span class="pc-cur">KWD</span>
+          <div class="pc-price-block">
+            <div class="pc-price-row">
+              <span class="pc-price-val" data-usd="250">$250</span>
+            </div>
+            <p class="pc-price-note">
+              <span class="lang-ar">دفعة واحدة · بدون رسوم خفية</span>
+              <span class="lang-en">One-time payment · No hidden fees</span>
+            </p>
           </div>
           <div class="pc-sep"></div>
           <ul class="pc-list">
-            <li><span class="lang-ar">كل ما في Starter + صفحات إضافية</span><span class="lang-en">Everything in Starter + extra pages</span></li>
-            <li><span class="lang-ar">SEO متقدم يرفع ظهورك على Google</span><span class="lang-en">Advanced SEO — rank on Google</span></li>
-            <li><span class="lang-ar">Analytics مدمج تتابع فيه النتائج</span><span class="lang-en">Analytics included — track performance</span></li>
-            <li><span class="lang-ar">دعم شهر كامل بعد الإطلاق</span><span class="lang-en">1 month of full support post-launch</span></li>
-            <li><span class="lang-ar">مراجعات غير محدودة</span><span class="lang-en">Unlimited revisions</span></li>
-            <li><span class="lang-ar">تحسين سرعة الموقع</span><span class="lang-en">Performance optimization included</span></li>
+            <li><span class="lang-ar">حتى 5 صفحات</span><span class="lang-en">Up to 5 pages website</span></li>
+            <li><span class="lang-ar">تصميم مخصص 100%</span><span class="lang-en">100% custom design</span></li>
+            <li><span class="lang-ar">تحسين تجربة المستخدم UX</span><span class="lang-en">UX optimization</span></li>
+            <li><span class="lang-ar">SEO أساسي (ميتا + هيكل)</span><span class="lang-en">Basic SEO (meta + structure)</span></li>
+            <li><span class="lang-ar">Google Analytics + Meta Pixel</span><span class="lang-en">Google Analytics + Meta Pixel</span></li>
+            <li><span class="lang-ar">إعداد CTA لزيادة التحويلات</span><span class="lang-en">Conversion-focused CTA setup</span></li>
+            <li><span class="lang-ar">3 مراجعات مضمونة</span><span class="lang-en">3 guaranteed revisions</span></li>
+            <li><span class="lang-ar">تسليم خلال 12 ساعة</span><span class="lang-en">Delivery in 12 hours</span></li>
           </ul>
           <a href="#contact" class="pc-btn pc-btn-primary">
             <span class="lang-ar">احصل على عرضك</span>
@@ -563,20 +597,28 @@
           <div class="pc-head">
             <span class="pc-tier lang-ar">المؤسسات</span>
             <span class="pc-tier lang-en">Enterprise</span>
-            <p class="pc-desc lang-ar">مشاريع كبيرة تحتاج حلولاً بلا حدود</p>
-            <p class="pc-desc lang-en">Large projects that need limitless solutions</p>
+            <p class="pc-desc lang-ar">مبني للنمو — بلا حدود</p>
+            <p class="pc-desc lang-en">Built for scale</p>
           </div>
-          <div class="pc-price-row">
-            <span class="pc-amt pc-amt-custom lang-ar">حسب المشروع</span>
-            <span class="pc-amt pc-amt-custom lang-en">Custom</span>
+          <div class="pc-price-block">
+            <div class="pc-price-row">
+              <span class="pc-price-val" data-usd="499">$499</span>
+            </div>
+            <p class="pc-price-note">
+              <span class="lang-ar">دفعة واحدة · بدون رسوم خفية</span>
+              <span class="lang-en">One-time payment · No hidden fees</span>
+            </p>
           </div>
           <div class="pc-sep"></div>
           <ul class="pc-list">
-            <li><span class="lang-ar">كل ما في Pro بلا قيود</span><span class="lang-en">Everything in Pro — no limits</span></li>
-            <li><span class="lang-ar">تخصيص كامل من الصفر</span><span class="lang-en">Fully custom-built from scratch</span></li>
-            <li><span class="lang-ar">أولوية قصوى في التنفيذ والدعم</span><span class="lang-en">Priority execution and support</span></li>
-            <li><span class="lang-ar">دعم سنة كاملة مع تحديثات</span><span class="lang-en">1 year support with updates</span></li>
-            <li><span class="lang-ar">مدير مشروع مخصص</span><span class="lang-en">Dedicated project manager</span></li>
+            <li><span class="lang-ar">صفحات غير محدودة</span><span class="lang-en">Unlimited pages</span></li>
+            <li><span class="lang-ar">UI/UX متقدم</span><span class="lang-en">Advanced UX/UI design</span></li>
+            <li><span class="lang-ar">SEO متقدم + استراتيجية محتوى</span><span class="lang-en">Advanced SEO + content strategy</span></li>
+            <li><span class="lang-ar">تكاملات API / CRM</span><span class="lang-en">API / CRM integrations</span></li>
+            <li><span class="lang-ar">تحسين الأداء الشامل</span><span class="lang-en">Full performance optimization</span></li>
+            <li><span class="lang-ar">دعم ذو أولوية قصوى</span><span class="lang-en">Priority support</span></li>
+            <li><span class="lang-ar">مراجعات غير محدودة</span><span class="lang-en">Unlimited revisions</span></li>
+            <li><span class="lang-ar">استشارة استراتيجية مجانية</span><span class="lang-en">Strategy consultation included</span></li>
           </ul>
           <a href="#contact" class="pc-btn">
             <span class="lang-ar">تواصل معنا</span>
@@ -584,71 +626,13 @@
           </a>
         </div>
 
-      </div>
+      </div><!-- /pricing-cards -->
 
-      <!-- COMPARISON TABLE -->
-      <div class="compare-wrap" data-anim="fade-up">
-        <h3 class="compare-title">
-          <span class="lang-ar">قارن الباقات</span>
-          <span class="lang-en">Compare Plans</span>
-        </h3>
-        <div class="compare-scroll">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th><span class="lang-ar">البداية</span><span class="lang-en">Starter</span></th>
-                <th class="cmp-featured"><span class="lang-ar">المحترف</span><span class="lang-en">Pro</span></th>
-                <th><span class="lang-ar">المؤسسات</span><span class="lang-en">Enterprise</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="lang-ar">موقع متكامل</span><span class="lang-en">Full Website</span></td>
-                <td><span class="cmp-yes">✓</span></td>
-                <td class="cmp-featured"><span class="cmp-yes">✓</span></td>
-                <td><span class="cmp-yes">✓</span></td>
-              </tr>
-              <tr>
-                <td><span class="lang-ar">عدد الصفحات</span><span class="lang-en">Pages</span></td>
-                <td><span class="lang-ar">صفحة واحدة</span><span class="lang-en">1</span></td>
-                <td class="cmp-featured"><span class="lang-ar">حتى 5</span><span class="lang-en">Up to 5</span></td>
-                <td><span class="lang-ar">غير محدود</span><span class="lang-en">Unlimited</span></td>
-              </tr>
-              <tr>
-                <td><span class="lang-ar">وقت التسليم</span><span class="lang-en">Delivery</span></td>
-                <td><span class="lang-ar">12 ساعة</span><span class="lang-en">12 hrs</span></td>
-                <td class="cmp-featured"><span class="lang-ar">12 ساعة</span><span class="lang-en">12 hrs</span></td>
-                <td><span class="lang-ar">حسب المشروع</span><span class="lang-en">Custom</span></td>
-              </tr>
-              <tr>
-                <td>SEO</td>
-                <td><span class="lang-ar">أساسي</span><span class="lang-en">Basic</span></td>
-                <td class="cmp-featured"><span class="lang-ar">متقدم</span><span class="lang-en">Advanced</span></td>
-                <td><span class="lang-ar">احترافي</span><span class="lang-en">Pro</span></td>
-              </tr>
-              <tr>
-                <td>Analytics</td>
-                <td><span class="cmp-no">—</span></td>
-                <td class="cmp-featured"><span class="cmp-yes">✓</span></td>
-                <td><span class="cmp-yes">✓</span></td>
-              </tr>
-              <tr>
-                <td><span class="lang-ar">المراجعات</span><span class="lang-en">Revisions</span></td>
-                <td>3</td>
-                <td class="cmp-featured"><span class="lang-ar">غير محدودة</span><span class="lang-en">Unlimited</span></td>
-                <td><span class="lang-ar">غير محدودة</span><span class="lang-en">Unlimited</span></td>
-              </tr>
-              <tr>
-                <td><span class="lang-ar">الدعم بعد الإطلاق</span><span class="lang-en">Post-launch Support</span></td>
-                <td><span class="lang-ar">أسبوع</span><span class="lang-en">1 week</span></td>
-                <td class="cmp-featured"><span class="lang-ar">شهر</span><span class="lang-en">1 month</span></td>
-                <td><span class="lang-ar">سنة</span><span class="lang-en">1 year</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <!-- Trust line -->
+      <p class="pricing-trust" data-anim="fade-up">
+        <span class="lang-ar">موثوق من أكثر من 50 عميل سعيد — تقييم 4.9 / 5</span>
+        <span class="lang-en">Trusted by 50+ happy clients — rated 4.9 / 5</span>
+      </p>
 
     </div>
   </section>
@@ -865,7 +849,7 @@
             <span class="sb-text lang-en">Get Your Free Quote</span>
             <span class="sb-load" style="display:none">...</span>
           </button>
-          <a href="https://wa.me/96500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
+          <a href="https://wa.me/96541005443?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
              class="wa-form-btn" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             <span class="lang-ar">أو تواصل مباشرة على واتساب</span>
@@ -897,8 +881,8 @@
           <span class="lang-ar">تواصل</span>
           <span class="lang-en">Contact</span>
         </p>
-        <a href="mailto:islam@agencycocoon.com" class="footer-link">islam@agencycocoon.com</a>
-        <a href="https://wa.me/96500000000" class="footer-link" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:hi@agencycocoon.com" class="footer-link">hi@agencycocoon.com</a>
+        <a href="https://wa.me/96541005443" class="footer-link" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://instagram.com/agencycocoon" class="footer-link" target="_blank" rel="noopener">@agencycocoon</a>
       </div>
 
@@ -933,7 +917,7 @@
 
 
   <!-- FLOATING WA -->
-  <a href="https://wa.me/96500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
+  <a href="https://wa.me/96541005443?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
      id="waFab" class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     <span class="wa-ring"></span>
