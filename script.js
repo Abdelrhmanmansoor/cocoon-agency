@@ -1,5 +1,5 @@
 /* ============================================================
-   COCOON AGENCY — CINEMATIC SCRIPT V2
+   COCOON AGENCY — CINEMATIC SCRIPT V3
    GSAP + ScrollTrigger powered
    ============================================================ */
 
@@ -8,36 +8,37 @@
 
   /* ─── GSAP SETUP ─────────────────────────────────────────── */
   if (typeof gsap === 'undefined') {
-    // Fallback: show content immediately if GSAP fails to load
-    document.querySelectorAll('[data-anim]').forEach(el => { el.style.opacity = '1'; });
+    document.querySelectorAll('[data-anim]').forEach(el => {
+      el.style.opacity = '1';
+      el.style.filter = 'none';
+      el.style.transform = 'none';
+    });
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const EASE       = 'power3.out';
-  const EASE_BACK  = 'back.out(1.4)';
-  const html       = document.documentElement;
+  const EASE = 'power3.out';
+  const html      = document.documentElement;
 
 
   /* ─── LOADER ─────────────────────────────────────────────── */
-  const loader   = document.getElementById('loader');
-  
+  const loader = document.getElementById('loader');
+
   const tl = gsap.timeline({
     onComplete: () => {
       loader.classList.add('out');
       document.body.classList.remove('is-loading');
-      setTimeout(() => { loader.style.display = 'none'; }, 750);
+      setTimeout(() => { loader.style.display = 'none'; }, 800);
       animateHero();
     }
   });
 
-  // Animate logo
-  tl.fromTo('.loader-logo', 
-    { opacity: 0, scale: 0.8, y: 30 },
-    { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: EASE }
+  tl.fromTo('.loader-logo',
+    { opacity: 0, scale: 0.75, y: 20 },
+    { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: EASE }
   )
-  .to({}, { duration: 1.5 }); // hold before dismissing
+  .to({}, { duration: 1.6 }); // hold
 
 
   /* ─── HERO ANIMATION ──────────────────────────────────────── */
@@ -52,21 +53,20 @@
 
     const htl = gsap.timeline({ defaults: { ease: EASE } });
     htl
-      .to(lines,   { y: '0%', opacity: 1, stagger: 0.12, duration: 1.0 })
-      .to(sub,     { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+      .to(lines,   { y: '0%', opacity: 1, stagger: 0.13, duration: 1.0 })
+      .to(sub,     { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
       .to(actions, { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
       .to(stats,   { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
   }
 
 
   /* ─── VIDEO LOADING ───────────────────────────────────────── */
-  const heroVid = document.getElementById('heroVid') || document.getElementById('heroVideo');
+  const heroVid = document.getElementById('heroVideo');
   if (heroVid) {
     const mobile = window.innerWidth <= 768;
     const src    = mobile ? heroVid.dataset.srcMobile : heroVid.dataset.srcDesktop;
     if (src) { heroVid.src = src; heroVid.load(); }
 
-    // Pause when offscreen on mobile
     if (mobile) {
       new IntersectionObserver(([e]) => {
         e.isIntersecting ? heroVid.play().catch(() => {}) : heroVid.pause();
@@ -90,14 +90,14 @@
   const navbar = document.getElementById('navbar');
   ScrollTrigger.create({
     start: 'top -60px',
-    onEnter:      () => navbar.classList.add('scrolled'),
-    onLeaveBack:  () => navbar.classList.remove('scrolled'),
+    onEnter:     () => navbar.classList.add('scrolled'),
+    onLeaveBack: () => navbar.classList.remove('scrolled'),
   });
 
 
   /* ─── MOBILE MENU ─────────────────────────────────────────── */
-  const menuBtn  = document.getElementById('menuBtn');
-  const navMenu  = document.getElementById('navMenu');
+  const menuBtn   = document.getElementById('menuBtn');
+  const navMenu   = document.getElementById('navMenu');
   const menuClose = document.getElementById('menuClose');
 
   window.closeMenu = function () {
@@ -119,7 +119,6 @@
     html.setAttribute('lang',      lang);
     html.setAttribute('dir',       lang === 'ar' ? 'rtl' : 'ltr');
     localStorage.setItem('c-lang', lang);
-    // Flip hero title lines back in for new language
     const lines = document.querySelectorAll('.hero-title .line');
     gsap.fromTo(lines, { y: '30%', opacity: 0 }, { y: '0%', opacity: 1, stagger: 0.08, duration: 0.6, ease: EASE });
   }
@@ -150,11 +149,11 @@
       requestAnimationFrame(tickRing);
     })();
 
-    document.querySelectorAll('a, button, .feat-line, .faq-q, .pc-inner').forEach(el => {
+    document.querySelectorAll('a, button, .feat-line, .faq-q, .proc-trigger, .pr-row').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
     });
-    document.querySelectorAll('.mag-item, .float-img, .portfolio-card').forEach(el => {
+    document.querySelectorAll('.mag-item, .sel-item').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('ci'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('ci'));
     });
@@ -164,34 +163,21 @@
   /* ─── SECTION REVEALS — GSAP ScrollTrigger ───────────────── */
 
   // Generic fade-up
-  document.querySelectorAll('[data-anim="fade-up"]').forEach((el) => {
+  document.querySelectorAll('[data-anim="fade-up"]').forEach(el => {
     gsap.fromTo(el,
       { y: 50, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.85, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 88%' }
-      }
+      { y: 0, opacity: 1, duration: 0.85, ease: EASE,
+        scrollTrigger: { trigger: el, start: 'top 88%' } }
     );
   });
 
-  // Blur-up: starts blurry + offset, resolves to sharp
-  document.querySelectorAll('[data-anim="blur-up"]').forEach((el) => {
+  // Blur-up: blurry → sharp
+  document.querySelectorAll('[data-anim="blur-up"]').forEach(el => {
     gsap.fromTo(el,
       { y: 30, opacity: 0, filter: 'blur(14px)' },
-      {
-        y: 0, opacity: 1, filter: 'blur(0px)',
+      { y: 0, opacity: 1, filter: 'blur(0px)',
         duration: 1.1, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 87%' }
-      }
-    );
-  });
-
-  // Section titles
-  document.querySelectorAll('[data-anim="section-title"]').forEach(el => {
-    gsap.fromTo(el,
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 85%' } }
+        scrollTrigger: { trigger: el, start: 'top 87%' } }
     );
   });
 
@@ -199,23 +185,9 @@
   document.querySelectorAll('[data-anim="feat"]').forEach((line, i) => {
     gsap.fromTo(line,
       { x: html.dir === 'rtl' ? 60 : -60, opacity: 0 },
-      {
-        x: 0, opacity: 1, duration: 0.75, ease: EASE,
+      { x: 0, opacity: 1, duration: 0.75, ease: EASE,
         delay: i * 0.07,
-        scrollTrigger: { trigger: line, start: 'top 90%' }
-      }
-    );
-  });
-
-  // Glassmorphism cards
-  document.querySelectorAll('[data-anim="glass"]').forEach((card, i) => {
-    gsap.fromTo(card,
-      { y: 60, opacity: 0, scale: 0.96 },
-      {
-        y: 0, opacity: 1, scale: 1, duration: 0.9, ease: EASE_BACK,
-        delay: i * 0.1,
-        scrollTrigger: { trigger: card, start: 'top 88%' }
-      }
+        scrollTrigger: { trigger: line, start: 'top 90%' } }
     );
   });
 
@@ -223,54 +195,40 @@
   document.querySelectorAll('[data-anim="port"]').forEach((el, i) => {
     gsap.fromTo(el,
       { y: 40, opacity: 0 },
-      {
-        y: 0, opacity: 1, duration: 0.8, ease: EASE,
+      { y: 0, opacity: 1, duration: 0.8, ease: EASE,
         delay: i * 0.12,
-        scrollTrigger: { trigger: el, start: 'top 88%' }
-      }
+        scrollTrigger: { trigger: el, start: 'top 88%' } }
     );
   });
 
-  // Creative grid items — blur + scale entry
-  document.querySelectorAll('[data-anim="creative"]').forEach((el, i) => {
+  // Selected works — stagger reveal
+  document.querySelectorAll('[data-anim="sel"]').forEach((el, idx) => {
     gsap.fromTo(el,
-      { scale: 0.94, opacity: 0, filter: 'blur(8px)' },
-      {
-        scale: 1, opacity: 1, filter: 'blur(0px)',
-        duration: 0.9, ease: EASE_BACK,
-        delay: i * 0.1,
-        scrollTrigger: { trigger: el, start: 'top 90%' }
-      }
+      { y: 50, opacity: 0, scale: 0.97 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.0, ease: EASE,
+        delay: idx * 0.1,
+        scrollTrigger: { trigger: el, start: 'top 88%' } }
     );
-  });
 
-
-  /* ─── FLOATING IMAGES GSAP ────────────────────────────────── */
-  document.querySelectorAll('.float-img').forEach((img, i) => {
-    const dir = (i % 2 === 0) ? -18 : 18;
-    gsap.to(img, {
-      y: dir, duration: 3 + i * 0.6,
-      ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.3
+    // Subtle parallax on scroll
+    gsap.to(el.querySelector('img'), {
+      yPercent: -6,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top bottom', end: 'bottom top',
+        scrub: 1.5
+      }
     });
-
-    // Scroll reveal
-    gsap.fromTo(img,
-      { opacity: 0, scale: 0.9, rotate: i % 2 === 0 ? '-8deg' : '8deg' },
-      {
-        opacity: 1, scale: 1,
-        duration: 1, ease: EASE,
-        delay: i * 0.1,
-        scrollTrigger: { trigger: img, start: 'top 90%' }
-      }
-    );
   });
+
 
 
   /* ─── STORY PARALLAX ──────────────────────────────────────── */
   const storyBg = document.querySelector('.story-bg img');
   if (storyBg) {
     gsap.to(storyBg, {
-      y: -120, ease: 'none',
+      y: -130, ease: 'none',
       scrollTrigger: {
         trigger: '#story',
         start: 'top bottom', end: 'bottom top',
@@ -279,7 +237,6 @@
     });
   }
 
-  // Story content
   const storyContent = document.querySelector('.story-content');
   if (storyContent) {
     gsap.fromTo(storyContent,
@@ -290,49 +247,45 @@
   }
 
 
-  /* ─── PRICING 3D FOCUS ────────────────────────────────────── */
-  const pricingScene = document.getElementById('pricingScene');
-  if (pricingScene) {
-    const cards = [...pricingScene.querySelectorAll('.price-card')];
+  /* ─── PROCESS ACCORDION ───────────────────────────────────── */
+  document.querySelectorAll('.proc-step').forEach((step, i) => {
+    const trigger = step.querySelector('.proc-trigger');
 
-    // Scroll-reveal whole block
-    gsap.fromTo(pricingScene,
-      { opacity: 0, y: 60 },
-      { opacity: 1, y: 0, duration: 1, ease: EASE,
-        scrollTrigger: { trigger: pricingScene, start: 'top 80%' } }
+    // Reveal each step on scroll
+    gsap.fromTo(step,
+      { x: html.dir === 'rtl' ? 50 : -50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.7, ease: EASE,
+        delay: i * 0.08,
+        scrollTrigger: { trigger: step, start: 'top 88%' } }
     );
 
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        // Rotate positions: clicked → center, others shift
-        const clickedPos = card.dataset.pos;
-        if (clickedPos === 'center') return;
-
-        cards.forEach(c => {
-          const currentPos = c.dataset.pos;
-          let newPos;
-          if (c === card) {
-            newPos = 'center';
-          } else if (currentPos === 'center') {
-            newPos = clickedPos === 'left' ? 'right' : 'left';
-          } else {
-            newPos = clickedPos === 'left' ? 'center' : 'center';
-          }
-
-          // Reassign for simplicity: clicked → center, center → opposite, other stays
-          if (c === card) {
-            c.dataset.pos = 'center';
-            c.classList.add('active');
-          } else {
-            c.classList.remove('active');
-            if (currentPos === 'center') {
-              c.dataset.pos = (clickedPos === 'left') ? 'right' : 'left';
-            }
-          }
-        });
-      });
+    trigger.addEventListener('click', () => {
+      const isOpen = step.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.proc-step.open').forEach(s => s.classList.remove('open'));
+      // Open clicked (unless it was already open)
+      if (!isOpen) step.classList.add('open');
     });
-  }
+  });
+
+  // Open first step by default after a delay
+  setTimeout(() => {
+    const first = document.querySelector('.proc-step');
+    if (first) first.classList.add('open');
+  }, 3200);
+
+
+  /* ─── PRICING CARDS REVEAL ────────────────────────────────── */
+  document.querySelectorAll('[data-anim="pc"]').forEach((card, i) => {
+    gsap.fromTo(card,
+      { y: 60, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.9, ease: EASE,
+        delay: i * 0.12,
+        scrollTrigger: { trigger: card, start: 'top 85%' }
+      }
+    );
+  });
 
 
   /* ─── FAQ ACCORDION ───────────────────────────────────────── */
@@ -346,8 +299,73 @@
   });
 
 
+  /* ─── HERO GLOW FOLLOW ────────────────────────────────────── */
+  const heroGlow = document.querySelector('.hero-glow');
+  if (heroGlow && window.innerWidth > 1024) {
+    document.addEventListener('mousemove', e => {
+      const xPct = e.clientX / window.innerWidth;
+      const yPct = e.clientY / window.innerHeight;
+      gsap.to(heroGlow, {
+        x: (xPct - 0.5) * 90,
+        y: (yPct - 0.5) * 70,
+        duration: 2.2, ease: 'power1.out'
+      });
+    });
+  }
+
+
+  /* ─── MARQUEE — JS pixel-perfect seamless loop ────────────── */
+  const mqTrack = document.querySelector('.marquee-track');
+  const mqSet1  = mqTrack ? mqTrack.querySelector('.marquee-set') : null;
+  if (mqTrack && mqSet1) {
+    let pos     = 0;
+    let paused  = false;
+    const speed = 0.55; // px per frame
+
+    function tickMarquee() {
+      if (!paused) {
+        pos -= speed;
+        // Reset when we've scrolled exactly one set's width — seamless
+        if (Math.abs(pos) >= mqSet1.offsetWidth) pos = 0;
+        mqTrack.style.transform = `translateX(${pos}px)`;
+      }
+      requestAnimationFrame(tickMarquee);
+    }
+    requestAnimationFrame(tickMarquee);
+
+    mqTrack.addEventListener('mouseenter', () => { paused = true; });
+    mqTrack.addEventListener('mouseleave', () => { paused = false; });
+  }
+
+
+  /* ─── FOOTER BG TEXT REVEAL ───────────────────────────────── */
+  const footerBg = document.querySelector('.footer-bg-text');
+  if (footerBg) {
+    gsap.fromTo(footerBg,
+      { opacity: 0, scale: 1.06 },
+      { opacity: 0.028, scale: 1, duration: 1.5, ease: EASE,
+        scrollTrigger: { trigger: '#footer', start: 'top 80%' } }
+    );
+  }
+
+
+  /* ─── COUNTER ANIMATION ───────────────────────────────────── */
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    ScrollTrigger.create({
+      trigger: el, start: 'top 90%', once: true,
+      onEnter: () => {
+        gsap.to({ n: 0 }, {
+          n: target, duration: 1.5, ease: 'power2.out',
+          onUpdate: function () { el.textContent = Math.round(this.targets()[0].n); }
+        });
+      }
+    });
+  });
+
+
   /* ─── CONTACT FORM ────────────────────────────────────────── */
-  const form = document.getElementById('contactForm');
+  const form        = document.getElementById('contactForm');
   const formSuccess = document.getElementById('formSuccess');
 
   if (form) {
@@ -373,10 +391,8 @@
       if (!ok) return;
 
       const btn     = form.querySelector('.submit-btn');
-      const btnText = btn.querySelector('.sb-text:not([style])') || btn.querySelector('.sb-text');
       const btnLoad = btn.querySelector('.sb-load');
 
-      // Show both lang spans, hide text, show loader
       btn.querySelectorAll('.sb-text').forEach(s => s.style.display = 'none');
       if (btnLoad) btnLoad.style.display = '';
       btn.disabled = true;
@@ -408,7 +424,7 @@
 
   /* ─── WHATSAPP FAB ────────────────────────────────────────── */
   const waFab = document.getElementById('waFab');
-  setTimeout(() => { waFab && waFab.classList.add('show'); }, 2600);
+  setTimeout(() => { waFab && waFab.classList.add('show'); }, 2800);
 
 
   /* ─── MOBILE STICKY CTA ───────────────────────────────────── */
@@ -431,7 +447,7 @@
   const exitCTA     = document.getElementById('exitCTA');
 
   let pageTime = 0;
-  const timer = setInterval(() => pageTime++, 1000);
+  setInterval(() => pageTime++, 1000);
   let shown = sessionStorage.getItem('c-exit');
 
   if (!shown && window.innerWidth > 1024) {
@@ -444,61 +460,9 @@
     });
   }
 
-  function closeExit() {
-    exitModal.classList.remove('open');
-  }
+  function closeExit() { exitModal.classList.remove('open'); }
   exitX       && exitX.addEventListener('click', closeExit);
   exitOverlay && exitOverlay.addEventListener('click', closeExit);
   exitCTA     && exitCTA.addEventListener('click', closeExit);
-
-
-  /* ─── FOOTER BG TEXT REVEAL ───────────────────────────────── */
-  const footerBg = document.querySelector('.footer-bg-text');
-  if (footerBg) {
-    gsap.fromTo(footerBg,
-      { opacity: 0, scale: 1.05 },
-      { opacity: 0.038, scale: 1, duration: 1.5, ease: EASE,
-        scrollTrigger: { trigger: '#footer', start: 'top 80%' } }
-    );
-  }
-
-
-  /* ─── COUNTER ANIMATION (stats) ──────────────────────────── */
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseInt(el.dataset.count);
-    const st = ScrollTrigger.create({
-      trigger: el, start: 'top 90%',
-      once: true,
-      onEnter: () => {
-        gsap.to({ n: 0 }, {
-          n: target, duration: 1.5, ease: 'power2.out',
-          onUpdate: function () { el.textContent = Math.round(this.targets()[0].n); }
-        });
-      }
-    });
-  });
-
-
-  /* ─── SUBTLE BACKGROUND GLOW FOLLOW (hero) ──────────────── */
-  const heroGlow = document.querySelector('.hero-glow');
-  if (heroGlow && window.innerWidth > 1024) {
-    document.addEventListener('mousemove', e => {
-      const xPct = e.clientX / window.innerWidth;
-      const yPct = e.clientY / window.innerHeight;
-      gsap.to(heroGlow, {
-        x: (xPct - 0.5) * 80,
-        y: (yPct - 0.5) * 60,
-        duration: 2, ease: 'power1.out'
-      });
-    });
-  }
-
-
-  /* ─── MARQUEE PAUSE ON HOVER ──────────────────────────────── */
-  const mqTrack = document.querySelector('.marquee-track');
-  if (mqTrack) {
-    mqTrack.addEventListener('mouseenter', () => mqTrack.style.animationPlayState = 'paused');
-    mqTrack.addEventListener('mouseleave', () => mqTrack.style.animationPlayState = 'running');
-  }
 
 })();

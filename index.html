@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="is-loading">
@@ -31,7 +31,8 @@
         <img src="LOGO.png" alt="Cocoon" class="loader-logo">
       </div>
       <div class="loader-pulse"></div>
-      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring-1"></div>
+      <div class="loader-ring loader-ring-2"></div>
     </div>
   </div>
 
@@ -69,47 +70,53 @@
 
 
   <!-- ══════════════════════════════
-       HERO
+       HERO — CONTAINED CINEMATIC
   ══════════════════════════════ -->
   <section id="hero">
-    <div class="hero-media">
-      <div class="hero-overlay"></div>
-      <div class="hero-glow"></div>
+    <div class="hero-frame">
       <video id="heroVideo" autoplay muted loop playsinline
         poster="Create_a_cinematic_202603301623.png"
         data-src-desktop="grok-video-6d34e7ae-e7e0-499e-bd11-2a78ad3d0bca(2).mp4"
         data-src-mobile="grok-video-6d34e7ae-e7e0-499e-bd11-2a78ad3d0bca(1).mp4">
       </video>
-    </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-glow"></div>
 
-    <div class="hero-body">
-      <h1 class="hero-title" data-anim="title">
-        <span class="lang-ar">
-          <span class="line">نخلّي الناس</span>
-          <span class="line accent-line">يتكلمون عنك.</span>
-        </span>
-        <span class="lang-en">
-          <span class="line">GET PEOPLE</span>
-          <span class="line accent-line">TALKING.</span>
-        </span>
-      </h1>
+      <!-- CENTERED HERO BODY -->
+      <div class="hero-body">
+        <h1 class="hero-title" data-anim="title">
+          <span class="lang-ar">
+            <span class="line">موقعك اللي</span>
+            <span class="line accent-line">يجيب العملاء.</span>
+          </span>
+          <span class="lang-en">
+            <span class="line">The website that</span>
+            <span class="line accent-line">brings clients.</span>
+          </span>
+        </h1>
 
-      <p class="hero-sub" data-anim="fade-up">
-        <span class="lang-ar">نحوّل الأفكار إلى تجارب بصرية لا تُنسى — تصميم، إنتاج، استراتيجية.</span>
-        <span class="lang-en">We transform ideas into unforgettable visual experiences — design, production, strategy.</span>
-      </p>
+        <p class="hero-sub" data-anim="fade-up">
+          <span class="lang-ar">نصمم تجربة رقمية تحوّل الزوار إلى عملاء — من التصميم إلى الإطلاق في <span class="hero-highlight">12 ساعة.</span></span>
+          <span class="lang-en">We design digital experiences that turn visitors into clients — from design to launch in <span class="hero-highlight">12 hours.</span></span>
+        </p>
 
-      <div class="hero-actions" data-anim="fade-up">
-        <a href="#contact" class="cta-main">
-          <span class="lang-ar">احصل على عرض مجاني</span>
-          <span class="lang-en">Get Free Quote</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#work" class="cta-ghost">
-          <span class="lang-ar">شاهد الأعمال</span>
-          <span class="lang-en">See Work</span>
-        </a>
+        <div class="hero-actions" data-anim="fade-up">
+          <a href="#contact" class="cta-main">
+            <span class="lang-ar">احصل على عرض مجاني</span>
+            <span class="lang-en">Get Free Quote</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#work" class="cta-ghost">
+            <span class="lang-ar">شاهد الأعمال</span>
+            <span class="lang-en">See Work</span>
+          </a>
+        </div>
       </div>
+
+      <button class="mute-btn" id="muteBtn">
+        <svg id="svgMuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        <svg id="svgSound" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+      </button>
     </div>
 
     <div class="hero-stats" data-anim="fade-up">
@@ -133,18 +140,17 @@
         <span class="stat-l lang-en">quality</span>
       </div>
     </div>
-
-    <button class="mute-btn" id="muteBtn">
-      <svg id="svgMuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-      <svg id="svgSound" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-    </button>
   </section>
 
 
   <!-- ══════════════════════════════
-       MARQUEE
+       MARQUEE — CLIENT LOGOS
   ══════════════════════════════ -->
   <section id="marquee">
+    <div class="marquee-label">
+      <span class="lang-ar">عملاؤنا</span>
+      <span class="lang-en">Our Clients</span>
+    </div>
     <div class="marquee-edge"></div>
     <div class="marquee-track">
       <div class="marquee-set">
@@ -189,19 +195,88 @@
 
 
   <!-- ══════════════════════════════
+       نماذج مختارة — SELECTED WORKS
+  ══════════════════════════════ -->
+  <section id="selected">
+    <div class="wrap">
+      <div class="selected-header" data-anim="fade-up">
+        <div class="section-eyebrow">
+          <span class="lang-ar">نماذج مختارة</span>
+          <span class="lang-en">Selected Works</span>
+        </div>
+        <h2 class="section-title">
+          <span class="lang-ar">إبداع يُرى<br>قبل أن يُقال.</span>
+          <span class="lang-en">Creativity seen<br>before it's said.</span>
+        </h2>
+      </div>
+
+      <div class="selected-grid">
+
+        <!-- ROW 1: Single wide cinematic image -->
+        <div class="sel-item sel-hero" data-anim="sel">
+          <div class="sel-img">
+            <img src="creative-build.png" alt="Build" loading="lazy">
+            <div class="sel-overlay sel-overlay-wide">
+              <div class="sel-overlay-inner">
+                <span class="sel-tag lang-ar">من الفكرة للإطلاق في 12 ساعة</span>
+                <span class="sel-tag lang-en">From idea to launch in 12 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 2: Three equal images -->
+        <div class="sel-row-3">
+          <div class="sel-item" data-anim="sel">
+            <div class="sel-img">
+              <img src="creative-idea.png" alt="Idea to Website" loading="lazy">
+              <div class="sel-overlay">
+                <span class="sel-tag lang-ar">فكرة + سرعة = موقع</span>
+                <span class="sel-tag lang-en">Idea + Speed = Website</span>
+              </div>
+            </div>
+          </div>
+          <div class="sel-item" data-anim="sel">
+            <div class="sel-img">
+              <img src="creative-clarity.png" alt="Clarity" loading="lazy">
+              <div class="sel-overlay">
+                <span class="sel-tag lang-ar">حيث الأفكار تتحول لنتائج</span>
+                <span class="sel-tag lang-en">Where ideas become results</span>
+              </div>
+            </div>
+          </div>
+          <div class="sel-item" data-anim="sel">
+            <div class="sel-img">
+              <img src="Create_a_cinematic_202603301705.png" alt="Stand Out" loading="lazy">
+              <div class="sel-overlay">
+                <span class="sel-tag lang-ar">خليك مختلف</span>
+                <span class="sel-tag lang-en">Stand Out.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════
        FEATURES — TYPOGRAPHY LIST
   ══════════════════════════════ -->
   <section id="features">
     <div class="wrap">
       <div class="feat-header">
-        <div class="section-eyebrow" data-anim="fade-up">
-          <span class="lang-ar">ماذا نقدم</span>
-          <span class="lang-en">What We Deliver</span>
+        <div class="feat-header-left">
+          <div class="section-eyebrow" data-anim="fade-up">
+            <span class="lang-ar">ماذا نقدم</span>
+            <span class="lang-en">What We Deliver</span>
+          </div>
+          <h2 class="feat-title" data-anim="blur-up">
+            <span class="lang-ar">كل ما تحتاجه<br>في مكان واحد.</span>
+            <span class="lang-en">Everything you need<br>in one place.</span>
+          </h2>
         </div>
-        <h2 class="feat-title" data-anim="fade-up">
-          <span class="lang-ar">كل ما تحتاجه<br>في مكان واحد.</span>
-          <span class="lang-en">Everything you need<br>in one place.</span>
-        </h2>
       </div>
 
       <div class="feat-lines">
@@ -211,9 +286,7 @@
           <span class="fl-name lang-en">Speed</span>
           <span class="fl-desc lang-ar">موقعك حي في 12 ساعة</span>
           <span class="fl-desc lang-en">Your site live in 12 hours</span>
-          <span class="fl-arrow">
-            <span class="lang-ar">←</span><span class="lang-en">→</span>
-          </span>
+          <span class="fl-arrow"><span class="lang-ar">←</span><span class="lang-en">→</span></span>
         </div>
         <div class="feat-line" data-anim="feat">
           <span class="fl-num">02</span>
@@ -221,9 +294,7 @@
           <span class="fl-name lang-en">Design</span>
           <span class="fl-desc lang-ar">100% مخصص — لا قوالب</span>
           <span class="fl-desc lang-en">100% custom — no templates</span>
-          <span class="fl-arrow">
-            <span class="lang-ar">←</span><span class="lang-en">→</span>
-          </span>
+          <span class="fl-arrow"><span class="lang-ar">←</span><span class="lang-en">→</span></span>
         </div>
         <div class="feat-line" data-anim="feat">
           <span class="fl-num">03</span>
@@ -231,19 +302,15 @@
           <span class="fl-name lang-en">Support</span>
           <span class="fl-desc lang-ar">متاحون بعد التسليم</span>
           <span class="fl-desc lang-en">Available after delivery</span>
-          <span class="fl-arrow">
-            <span class="lang-ar">←</span><span class="lang-en">→</span>
-          </span>
+          <span class="fl-arrow"><span class="lang-ar">←</span><span class="lang-en">→</span></span>
         </div>
         <div class="feat-line" data-anim="feat">
           <span class="fl-num">04</span>
           <span class="fl-name lang-ar">الذكاء الاصطناعي</span>
           <span class="fl-name lang-en">AI-Powered</span>
           <span class="fl-desc lang-ar">تقنية متقدمة في خدمة رؤيتك</span>
-          <span class="fl-desc lang-en">Advanced technology serving your vision</span>
-          <span class="fl-arrow">
-            <span class="lang-ar">←</span><span class="lang-en">→</span>
-          </span>
+          <span class="fl-desc lang-en">Advanced technology for your vision</span>
+          <span class="fl-arrow"><span class="lang-ar">←</span><span class="lang-en">→</span></span>
         </div>
         <div class="feat-line" data-anim="feat">
           <span class="fl-num">05</span>
@@ -251,9 +318,7 @@
           <span class="fl-name lang-en">Clear Pricing</span>
           <span class="fl-desc lang-ar">تنافسي — لا رسوم مخفية</span>
           <span class="fl-desc lang-en">Competitive — no hidden fees</span>
-          <span class="fl-arrow">
-            <span class="lang-ar">←</span><span class="lang-en">→</span>
-          </span>
+          <span class="fl-arrow"><span class="lang-ar">←</span><span class="lang-en">→</span></span>
         </div>
       </div>
     </div>
@@ -261,44 +326,7 @@
 
 
   <!-- ══════════════════════════════
-       FLOATING IMAGES
-  ══════════════════════════════ -->
-  <section id="images">
-    <div class="wrap images-wrap">
-      <div class="images-text">
-        <div class="section-eyebrow" data-anim="fade-up">
-          <span class="lang-ar">نماذج من أعمالنا</span>
-          <span class="lang-en">A Glimpse of Our Work</span>
-        </div>
-        <h2 class="images-headline" data-anim="blur-up">
-          <span class="lang-ar">إبداع يُرى<br>قبل أن يُقال.</span>
-          <span class="lang-en">Creativity seen<br>before it's said.</span>
-        </h2>
-      </div>
-
-      <div class="images-scene">
-        <div class="float-img float-img-1" data-float="0">
-          <img src="COCOON PORTFOLIO/1.png" alt="Portfolio" loading="lazy">
-        </div>
-        <div class="float-img float-img-2" data-float="1">
-          <img src="COCOON PORTFOLIO/2.png" alt="Portfolio" loading="lazy">
-        </div>
-        <div class="float-img float-img-3" data-float="2">
-          <img src="COCOON PORTFOLIO/3.png" alt="Portfolio" loading="lazy">
-        </div>
-        <div class="float-img float-img-4" data-float="3">
-          <img src="COCOON PORTFOLIO/4.png" alt="Portfolio" loading="lazy">
-        </div>
-        <div class="float-img float-img-5" data-float="4">
-          <img src="COCOON PORTFOLIO/5.png" alt="Portfolio" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════
-       STORY — FULLSCREEN
+       STORY — FULLSCREEN GRADIENT
   ══════════════════════════════ -->
   <section id="story">
     <div class="story-bg" data-parallax="0.25">
@@ -321,15 +349,15 @@
         <span class="lang-en">Cocoon was born from a simple belief: real creativity can't be templated. We build visual experiences that move people, move numbers, and move brands forward.</span>
       </p>
       <p class="story-small">
-        <span class="lang-ar">كويت · منذ 2022 · كل شيء يؤثر في كل شيء</span>
-        <span class="lang-en">Kuwait · Since 2022 · everything affects everything</span>
+        <span class="lang-ar">كويت &nbsp;·&nbsp; منذ 2022 &nbsp;·&nbsp; كل شيء يؤثر في كل شيء</span>
+        <span class="lang-en">Kuwait &nbsp;·&nbsp; Since 2022 &nbsp;·&nbsp; everything affects everything</span>
       </p>
     </div>
   </section>
 
 
   <!-- ══════════════════════════════
-       PROCESS — GLASSMORPHISM
+       PROCESS — EXPANDABLE ACCORDION
   ══════════════════════════════ -->
   <section id="process">
     <div class="wrap">
@@ -342,148 +370,186 @@
         <span class="lang-en">Simple. Fast. Real.</span>
       </h2>
 
-      <div class="process-grid">
-        <div class="glass-card" data-anim="glass">
-          <span class="gc-num">01</span>
-          <h3 class="gc-title">
-            <span class="lang-ar">تواصل معنا</span>
-            <span class="lang-en">Contact</span>
-          </h3>
-          <p class="gc-desc">
-            <span class="lang-ar">أخبرنا عن مشروعك عبر النموذج أو واتساب</span>
-            <span class="lang-en">Tell us about your project via form or WhatsApp</span>
-          </p>
+      <div class="process-accordion" id="processAccordion">
+
+        <div class="proc-step" data-step="0">
+          <button class="proc-trigger">
+            <span class="proc-num">01</span>
+            <span class="proc-name lang-ar">تواصل معنا</span>
+            <span class="proc-name lang-en">Contact Us</span>
+            <span class="proc-icon">+</span>
+          </button>
+          <div class="proc-body">
+            <div class="proc-body-inner">
+              <p class="proc-desc lang-ar">أخبرنا عن مشروعك عبر النموذج أو واتساب — ونردّ خلال ساعة مضمون.</p>
+              <p class="proc-desc lang-en">Tell us about your project via form or WhatsApp — we reply within 1 hour, guaranteed.</p>
+              <a href="#contact" class="proc-cta">
+                <span class="lang-ar">ابدأ الآن</span>
+                <span class="lang-en">Start Now</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card" data-anim="glass">
-          <span class="gc-num">02</span>
-          <h3 class="gc-title">
-            <span class="lang-ar">البريف</span>
-            <span class="lang-en">Brief</span>
-          </h3>
-          <p class="gc-desc">
-            <span class="lang-ar">نستلم تفاصيلك ونبدأ التخطيط فوراً</span>
-            <span class="lang-en">We receive your details and plan immediately</span>
-          </p>
+        <div class="proc-step" data-step="1">
+          <button class="proc-trigger">
+            <span class="proc-num">02</span>
+            <span class="proc-name lang-ar">البريف</span>
+            <span class="proc-name lang-en">The Brief</span>
+            <span class="proc-icon">+</span>
+          </button>
+          <div class="proc-body">
+            <div class="proc-body-inner">
+              <p class="proc-desc lang-ar">نستلم تفاصيلك الكاملة — الهوية، الهدف، الجمهور — ونبدأ التخطيط فوراً.</p>
+              <p class="proc-desc lang-en">We gather all your details — brand, goal, audience — and begin planning immediately.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card" data-anim="glass">
-          <span class="gc-num">03</span>
-          <h3 class="gc-title">
-            <span class="lang-ar">التنفيذ</span>
-            <span class="lang-en">Build</span>
-          </h3>
-          <p class="gc-desc">
-            <span class="lang-ar">فريقنا + الذكاء الاصطناعي يبنيان موقعك</span>
-            <span class="lang-en">Our team + AI build your site together</span>
-          </p>
+        <div class="proc-step" data-step="2">
+          <button class="proc-trigger">
+            <span class="proc-num">03</span>
+            <span class="proc-name lang-ar">التنفيذ</span>
+            <span class="proc-name lang-en">Build</span>
+            <span class="proc-icon">+</span>
+          </button>
+          <div class="proc-body">
+            <div class="proc-body-inner">
+              <p class="proc-desc lang-ar">فريقنا الإبداعي + الذكاء الاصطناعي يبنيان موقعك بدقة عالية وتفاصيل لا تُنسى.</p>
+              <p class="proc-desc lang-en">Our creative team + AI builds your site with precision and unforgettable detail.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-card glass-card-launch" data-anim="glass">
-          <span class="gc-num">04</span>
-          <h3 class="gc-title">
-            <span class="lang-ar">الإطلاق</span>
-            <span class="lang-en">Launch</span>
-          </h3>
-          <p class="gc-desc">
-            <span class="lang-ar">موقعك حي خلال 12 ساعة من استلام البريف</span>
-            <span class="lang-en">Your site goes live within 12 hours</span>
-          </p>
-          <div class="gc-glow"></div>
+        <div class="proc-step proc-step-final" data-step="3">
+          <button class="proc-trigger">
+            <span class="proc-num">04</span>
+            <span class="proc-name lang-ar">الإطلاق</span>
+            <span class="proc-name lang-en">Launch</span>
+            <span class="proc-icon">+</span>
+          </button>
+          <div class="proc-body">
+            <div class="proc-body-inner">
+              <p class="proc-desc lang-ar">موقعك حي خلال 12 ساعة من استلام البريف الكامل — مع ضمان الجودة الكاملة.</p>
+              <p class="proc-desc lang-en">Your site goes live within 12 hours of the complete brief — with full quality guarantee.</p>
+              <a href="#contact" class="proc-cta">
+                <span class="lang-ar">احصل على موقعك الآن</span>
+                <span class="lang-en">Get Your Site Now</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
 
   <!-- ══════════════════════════════
-       PRICING — 3D FOCUS
+       PRICING — MODERN CARDS
   ══════════════════════════════ -->
   <section id="pricing">
     <div class="wrap">
-      <div class="section-eyebrow" data-anim="fade-up">
-        <span class="lang-ar">الاستثمار</span>
-        <span class="lang-en">Investment</span>
+      <div class="pricing-header">
+        <div class="section-eyebrow" data-anim="fade-up">
+          <span class="lang-ar">الاستثمار</span>
+          <span class="lang-en">Investment</span>
+        </div>
+        <h2 class="section-title" data-anim="fade-up">
+          <span class="lang-ar">أسعار واضحة.</span>
+          <span class="lang-en">Clear pricing.</span>
+        </h2>
       </div>
-      <h2 class="section-title" data-anim="fade-up">
-        <span class="lang-ar">أسعار واضحة.</span>
-        <span class="lang-en">Clear pricing.</span>
-      </h2>
 
-      <div class="pricing-scene" id="pricingScene">
-        <!-- Starter -->
-        <div class="price-card" data-pos="left" id="pc0">
-          <div class="pc-inner">
-            <span class="pc-tag">STARTER</span>
+      <div class="pricing-cards" id="pricingCards">
+
+        <!-- STARTER -->
+        <div class="pc" data-anim="pc">
+          <span class="pc-watermark">01</span>
+          <div class="pc-top">
+            <span class="pc-tier">STARTER</span>
             <h3 class="pc-name lang-ar">البداية</h3>
             <h3 class="pc-name lang-en">Starter</h3>
-            <div class="pc-price">
-              <span class="pc-amt">—</span>
-              <span class="pc-cur">KWD</span>
-            </div>
-            <ul class="pc-feats">
-              <li><span class="lang-ar">موقع ويب متكامل</span><span class="lang-en">Full Website</span></li>
-              <li><span class="lang-ar">تصميم مخصص</span><span class="lang-en">Custom Design</span></li>
-              <li><span class="lang-ar">Responsive</span><span class="lang-en">Responsive</span></li>
-              <li><span class="lang-ar">تسليم في 12 ساعة</span><span class="lang-en">12-Hour Delivery</span></li>
-              <li><span class="lang-ar">دعم أسبوع</span><span class="lang-en">1 Week Support</span></li>
-            </ul>
-            <a href="#contact" class="pc-cta">
-              <span class="lang-ar">ابدأ الآن</span>
-              <span class="lang-en">Start Now</span>
-            </a>
           </div>
+          <div class="pc-price-row">
+            <span class="pc-amt">—</span>
+            <span class="pc-cur">KWD</span>
+          </div>
+          <div class="pc-sep"></div>
+          <ul class="pc-list">
+            <li><span class="lang-ar">موقع ويب متكامل</span><span class="lang-en">Full Website</span></li>
+            <li><span class="lang-ar">تصميم 100% مخصص</span><span class="lang-en">100% Custom Design</span></li>
+            <li><span class="lang-ar">Responsive على كل الأجهزة</span><span class="lang-en">Fully Responsive</span></li>
+            <li><span class="lang-ar">تسليم في 12 ساعة</span><span class="lang-en">12-Hour Delivery</span></li>
+            <li><span class="lang-ar">دعم أسبوع كامل</span><span class="lang-en">1 Week Support</span></li>
+          </ul>
+          <a href="#contact" class="pc-btn">
+            <span class="lang-ar">ابدأ الآن</span>
+            <span class="lang-en">Start Now</span>
+          </a>
         </div>
 
-        <!-- Pro -->
-        <div class="price-card price-card-center" data-pos="center" id="pc1">
-          <div class="pc-inner">
-            <span class="pc-tag pc-tag-hot lang-ar">الأكثر طلباً</span>
-            <span class="pc-tag pc-tag-hot lang-en">Most Popular</span>
+        <!-- PRO — FEATURED -->
+        <div class="pc pc-featured" data-anim="pc">
+          <span class="nc nc-tl" aria-hidden="true"></span>
+          <span class="nc nc-tr" aria-hidden="true"></span>
+          <span class="nc nc-br" aria-hidden="true"></span>
+          <span class="nc nc-bl" aria-hidden="true"></span>
+          <span class="pc-watermark">02</span>
+          <div class="pc-top">
+            <span class="pc-tier pc-tier-hot lang-ar">الأكثر طلباً</span>
+            <span class="pc-tier pc-tier-hot lang-en">Most Popular</span>
             <h3 class="pc-name lang-ar">المحترف</h3>
             <h3 class="pc-name lang-en">Pro</h3>
-            <div class="pc-price">
-              <span class="pc-amt">—</span>
-              <span class="pc-cur">KWD</span>
-            </div>
-            <ul class="pc-feats">
-              <li><span class="lang-ar">كل مميزات Starter</span><span class="lang-en">Everything in Starter</span></li>
-              <li><span class="lang-ar">صفحات إضافية</span><span class="lang-en">Extra Pages</span></li>
-              <li><span class="lang-ar">SEO متقدم</span><span class="lang-en">Advanced SEO</span></li>
-              <li><span class="lang-ar">Analytics</span><span class="lang-en">Analytics</span></li>
-              <li><span class="lang-ar">دعم شهر كامل</span><span class="lang-en">1 Month Support</span></li>
-              <li><span class="lang-ar">مراجعات غير محدودة</span><span class="lang-en">Unlimited Revisions</span></li>
-            </ul>
-            <a href="#contact" class="pc-cta pc-cta-main">
-              <span class="lang-ar">احصل على عرض</span>
-              <span class="lang-en">Get a Quote</span>
-            </a>
           </div>
+          <div class="pc-price-row">
+            <span class="pc-amt">—</span>
+            <span class="pc-cur">KWD</span>
+          </div>
+          <div class="pc-sep"></div>
+          <ul class="pc-list">
+            <li><span class="lang-ar">كل مميزات Starter</span><span class="lang-en">Everything in Starter</span></li>
+            <li><span class="lang-ar">صفحات إضافية</span><span class="lang-en">Extra Pages</span></li>
+            <li><span class="lang-ar">SEO متقدم</span><span class="lang-en">Advanced SEO</span></li>
+            <li><span class="lang-ar">Analytics مدمج</span><span class="lang-en">Analytics Included</span></li>
+            <li><span class="lang-ar">دعم شهر كامل</span><span class="lang-en">1 Month Support</span></li>
+            <li><span class="lang-ar">مراجعات غير محدودة</span><span class="lang-en">Unlimited Revisions</span></li>
+          </ul>
+          <a href="#contact" class="pc-btn pc-btn-primary">
+            <span class="lang-ar">احصل على عرض</span>
+            <span class="lang-en">Get a Quote</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
           <div class="pc-glow"></div>
         </div>
 
-        <!-- Enterprise -->
-        <div class="price-card" data-pos="right" id="pc2">
-          <div class="pc-inner">
-            <span class="pc-tag">ENTERPRISE</span>
+        <!-- ENTERPRISE -->
+        <div class="pc" data-anim="pc">
+          <span class="pc-watermark">03</span>
+          <div class="pc-top">
+            <span class="pc-tier">ENTERPRISE</span>
             <h3 class="pc-name lang-ar">المؤسسات</h3>
             <h3 class="pc-name lang-en">Enterprise</h3>
-            <div class="pc-price">
-              <span class="pc-amt pc-custom lang-ar">حسب المشروع</span>
-              <span class="pc-amt pc-custom lang-en">Custom</span>
-            </div>
-            <ul class="pc-feats">
-              <li><span class="lang-ar">كل شيء في Pro</span><span class="lang-en">Everything in Pro</span></li>
-              <li><span class="lang-ar">تخصيص كامل</span><span class="lang-en">Full Customization</span></li>
-              <li><span class="lang-ar">أولوية قصوى</span><span class="lang-en">Top Priority</span></li>
-              <li><span class="lang-ar">دعم سنة كاملة</span><span class="lang-en">1 Year Support</span></li>
-            </ul>
-            <a href="#contact" class="pc-cta">
-              <span class="lang-ar">تواصل معنا</span>
-              <span class="lang-en">Contact Us</span>
-            </a>
           </div>
+          <div class="pc-price-row">
+            <span class="pc-amt pc-amt-custom lang-ar">حسب المشروع</span>
+            <span class="pc-amt pc-amt-custom lang-en">Custom</span>
+          </div>
+          <div class="pc-sep"></div>
+          <ul class="pc-list">
+            <li><span class="lang-ar">كل شيء في Pro</span><span class="lang-en">Everything in Pro</span></li>
+            <li><span class="lang-ar">تخصيص كامل بلا حدود</span><span class="lang-en">Full Custom — No Limits</span></li>
+            <li><span class="lang-ar">أولوية قصوى في التنفيذ</span><span class="lang-en">Top Priority Service</span></li>
+            <li><span class="lang-ar">دعم سنة كاملة</span><span class="lang-en">1 Year Full Support</span></li>
+          </ul>
+          <a href="#contact" class="pc-btn">
+            <span class="lang-ar">تواصل معنا</span>
+            <span class="lang-en">Contact Us</span>
+          </a>
         </div>
+
       </div>
     </div>
   </section>
@@ -522,7 +588,6 @@
             </div>
           </div>
         </div>
-
         <div class="mag-col">
           <div class="mag-item mag-med" data-anim="port">
             <div class="mag-img">
@@ -533,7 +598,6 @@
               </div>
             </div>
           </div>
-
           <div class="mag-row">
             <div class="mag-item mag-sm" data-anim="port">
               <div class="mag-img">
@@ -555,8 +619,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Floating overlays -->
         <div class="mag-item mag-float-a" data-anim="port">
           <div class="mag-img">
             <img src="COCOON PORTFOLIO/10.png" alt="Karl Lagerfeld" loading="lazy">
@@ -571,65 +633,6 @@
   </section>
 
 
-  <!-- ══════════════════════════════
-       CREATIVE CONTENT — 4 SQUARE IMAGES
-  ══════════════════════════════ -->
-  <section id="creative">
-    <div class="wrap">
-      <div class="creative-header">
-        <div class="section-eyebrow" data-anim="fade-up">
-          <span class="lang-ar">محتوى إبداعي</span>
-          <span class="lang-en">Creative Content</span>
-        </div>
-        <h2 class="section-title" data-anim="blur-up">
-          <span class="lang-ar">نصنع محتوى<br>يُعاد مشاركته.</span>
-          <span class="lang-en">Content that<br>gets shared.</span>
-        </h2>
-      </div>
-
-      <div class="creative-grid">
-        <div class="creative-item" data-anim="creative">
-          <div class="creative-img">
-            <img src="creative-1.png" alt="Build" loading="lazy">
-          </div>
-          <div class="creative-caption">
-            <span class="cc-label lang-ar">من الفكرة إلى الإطلاق في 12 ساعة</span>
-            <span class="cc-label lang-en">From idea to launch in 12 hours</span>
-          </div>
-        </div>
-
-        <div class="creative-item" data-anim="creative">
-          <div class="creative-img">
-            <img src="creative-2.png" alt="Process" loading="lazy">
-          </div>
-          <div class="creative-caption">
-            <span class="cc-label lang-ar">فكرة + سرعة = موقع جاهز</span>
-            <span class="cc-label lang-en">Idea + Speed = Website</span>
-          </div>
-        </div>
-
-        <div class="creative-item" data-anim="creative">
-          <div class="creative-img">
-            <img src="creative-3.png" alt="Clarity" loading="lazy">
-          </div>
-          <div class="creative-caption">
-            <span class="cc-label lang-ar">حيث تتحول الأفكار إلى نتائج</span>
-            <span class="cc-label lang-en">Where ideas become results</span>
-          </div>
-        </div>
-
-        <div class="creative-item" data-anim="creative">
-          <div class="creative-img">
-            <img src="creative-4.png" alt="Stand Out" loading="lazy">
-          </div>
-          <div class="creative-caption">
-            <span class="cc-label lang-ar">خليك مختلف</span>
-            <span class="cc-label lang-en">Stand out.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <!-- ══════════════════════════════
@@ -680,8 +683,8 @@
               <span class="faq-ico">+</span>
             </button>
             <div class="faq-a">
-              <span class="lang-ar">نكون متاحين للدعم والتعديلات.</span>
-              <span class="lang-en">We're available for support and revisions.</span>
+              <span class="lang-ar">نكون متاحين للدعم والتعديلات حسب الباقة المختارة.</span>
+              <span class="lang-en">We're available for support and revisions per your chosen plan.</span>
             </div>
           </div>
           <div class="faq-item" data-anim="fade-up">
@@ -693,6 +696,17 @@
             <div class="faq-a">
               <span class="lang-ar">نعم، بشكل كامل من الأساس.</span>
               <span class="lang-en">Yes, fully — built in from ground up.</span>
+            </div>
+          </div>
+          <div class="faq-item" data-anim="fade-up">
+            <button class="faq-q">
+              <span class="lang-ar">هل يمكن التعديل بعد الإطلاق؟</span>
+              <span class="lang-en">Can I edit after launch?</span>
+              <span class="faq-ico">+</span>
+            </button>
+            <div class="faq-a">
+              <span class="lang-ar">نعم، وتحصل على لوحة تحكم سهلة للتعديل بنفسك.</span>
+              <span class="lang-en">Yes, you get an easy dashboard to edit on your own.</span>
             </div>
           </div>
         </div>
@@ -752,7 +766,6 @@
             <span class="sb-text lang-en">Get Your Free Quote</span>
             <span class="sb-load" style="display:none">...</span>
           </button>
-
           <a href="https://wa.me/96500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7"
              class="wa-form-btn" target="_blank" rel="noopener">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
@@ -762,8 +775,8 @@
         </form>
 
         <div class="form-success" id="formSuccess" style="display:none">
-          <h3 class="fs-title lang-ar">شكراً ✓</h3>
-          <h3 class="fs-title lang-en">Thank You ✓</h3>
+          <h3 class="fs-title lang-ar">شكراً</h3>
+          <h3 class="fs-title lang-en">Thank You</h3>
           <p class="lang-ar">سيتواصل فريقنا معك خلال ساعة.</p>
           <p class="lang-en">Our team will reach out within 1 hour.</p>
         </div>
@@ -776,7 +789,7 @@
        FOOTER
   ══════════════════════════════ -->
   <footer id="footer">
-    <div class="footer-bg-text" aria-hidden="true">EVERYTHING<br>AFFECTS EVERYTHING</div>
+    <div class="footer-bg-text" aria-hidden="true">COCOON</div>
     <div class="footer-glow"></div>
 
     <div class="wrap footer-body">
